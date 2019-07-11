@@ -20,13 +20,13 @@ module.exports.hashPassword = async (password) => {
         const salt = await bcrypt.genSalt(10);
         return await bcrypt.hash(password, salt);
     } catch(error){
-        throw new Error('Проблемы с хэшем', error);
+        req.flash('warninig', `Проблесы с кэшем ${error}`);
     }
 };
 module.exports.comparePassword = async (inputPassword, hashedPassword) => {
     try {
         return await bcrypt.compare(inputPassword, hashedPassword);
     } catch(error) {
-        throw new Error('Comparing field', error);
+        req.flash('warninig', `Неопознаная ошибка ${error}`);
     }
 };
