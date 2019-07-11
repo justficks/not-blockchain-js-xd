@@ -84,23 +84,7 @@ router.route('/dashboard')
       //Вот здесь мы передаём данные
     });
   });
-
-router.route('/getFiles')
-  .get(isAuthenticated, (req,res) => {
-    res.render('files', {
-      username: req.user.username
-      //Вот здесь мы передаём данные
-    });
-  });
-
-router.route('/getMyFiles')
-  .get(isAuthenticated, (req,res) => {
-    res.render('myfiles', {
-      username: req.user.username
-      //Вот здесь мы передаём данные
-    });
-  });
-
+  
 router.route('/logout')
   .get(isAuthenticated, (req, res) => {
     req.logout();
