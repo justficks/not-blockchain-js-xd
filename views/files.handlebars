@@ -1,0 +1,79 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2">
+                <form method="POST" action="/files/upload" enctype="multipart/form-data" id="formAddToBC">
+                    <!-- COMPONENT START -->
+                    <div class="form-group">
+                        <div class="input-group input-file" name="Fichier1">
+                            <span class="input-group-btn">
+                                <input type="file" name="file" id="file" class="btn btn-default btn-choose">
+                            </span>
+                            <span class="input-group-btn">
+                                <input type="submit" name="upload" value="Загрузить" class="btn btn-warning btn-reset">
+                            </span>
+                        </div>
+                    </div>
+                </form>
+        </div>
+
+        <div class="col-md-12 center-block" style="padding: 10px">
+            {{#if files}}
+                {{#each files}}
+                    <div class="centered-top showInfo">
+                        {{#if inBlock}}
+                            <p>{{filename}}</p>
+                            <form method="POST" action="/files/addInBC/{{ _id }}?_method=POST" style="padding:10px" id="{{_id}}" onclick="getID(this)">
+                                <button class="btn btn-danger btn-block mt-4">Добавить в блокчейн</button>
+                            </form>
+                        {{else}}
+                            <p>{{filename}}</p>
+                        {{/if}}
+                        <form method="GET" action="/files/file/{{ filename }}?_method=GET" style="padding:10px">
+                            <button class="btn btn-danger btn-block mt-4">Показать</button>
+                        </form>
+                        <form method="POST" action="/files/file/{{ _id }}" style="padding:10px">
+                            <button class="btn btn-danger btn-block mt-4">Удалить</button>
+                        </form>
+                    </div>
+                {{/each}}
+            {{else}}
+                <p>No files to show</p>
+            {{/if}}
+        </div>
+    </div>
+
+    
+
+</div>
+
+<script>
+function bs_input_file() {
+	$(".input-file").before(
+		function() {
+			if ( ! $(this).prev().hasClass('input-ghost') ) {
+				var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
+				element.attr("name",$(this).attr("name"));
+				element.change(function(){
+					element.next(element).find('input').val((element.val()).split('\\').pop());
+				});
+				$(this).find("button.btn-choose").click(function(){
+					element.click();
+				});
+				$(this).find("button.btn-reset").click(function(){
+					element.val(null);
+					$(this).parents(".input-file").find('input').val('');
+				});
+				$(this).find('input').css("cursor","pointer");
+				$(this).find('input').mousedown(function() {
+					$(this).parents('.input-file').prev().click();
+					return false;
+				});
+				return element;
+			}
+		}
+	);
+}
+$(function() {
+	bs_input_file();
+});
+</script>
