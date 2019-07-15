@@ -65,3 +65,28 @@ module.exports.getFiles = (req, res) => {
         }
     });
 };
+
+module.exports.streamFile = (req, res) => {
+    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+        // Check if file
+        if (!file || file.length === 0) {
+          return res.status(404).json({
+            err: 'No file exists'
+          });
+        }
+        
+        const readstream = gfs.createReadStream(file.filename);
+        readstream.pipe(res);
+
+    });
+};
+
+module.exports.deleteFile = (req, res) => {
+    gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
+        if (err) {
+          return res.status(404).json({ err: err });
+        }
+    
+        res.redirect('/files/getFiles');
+    });
+};
