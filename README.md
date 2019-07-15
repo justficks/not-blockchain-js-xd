@@ -17,4 +17,4 @@ handlebars, passport.js have been used.
 ---
 Sourses used:
 1. https://www.youtube.com/watch?v=zVqczFZr124
-2. Next videos
+2. Next videos of this playlist
