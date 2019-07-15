@@ -90,3 +90,7 @@ module.exports.deleteFile = (req, res) => {
         res.redirect('/files/getFiles');
     });
 };
+
+module.exports.uploadFile = (req, res) => {
+    res.redirect('/files/getFiles');
+}

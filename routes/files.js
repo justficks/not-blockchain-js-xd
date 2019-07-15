@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const file = require('../models/files');
+const bc = require('../blockchain/blockchain');
 
 router.get('/getFiles', (req, res) => {
     file.getFiles(req, res);
